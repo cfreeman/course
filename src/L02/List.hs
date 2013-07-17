@@ -39,8 +39,10 @@ foldLeft f b (h :| t) = let b' = f b h in b' `seq` foldLeft f b' t
 -- Performance: 0.5 mark
 -- Elegance: 0.5 marks
 -- Total: 3
+-- provides head of list or second argument if the head is empty
 headOr :: List a -> a -> a
-headOr = error "todo"
+headOr Nil b = b
+headOr (h :| _) _ = h
 
 -- Exercise 2
 -- Relative Difficulty: 2
@@ -48,8 +50,9 @@ headOr = error "todo"
 -- Performance: 1 mark
 -- Elegance: 0.5 marks
 -- Total: 4
+-- summ of elements.
 suum :: List Int -> Int
-suum = error "todo"
+suum = foldLeft (+) 0
 
 -- Exercise 3
 -- Relative Difficulty: 2
@@ -57,8 +60,10 @@ suum = error "todo"
 -- Performance: 1 mark
 -- Elegance: 0.5 marks
 -- Total: 4
+-- length of list
 len :: List a -> Int
-len = error "todo"
+len Nil = 0
+len (_ :| t) = 1 + len(t)
 
 -- Exercise 4
 -- Relative Difficulty: 5
@@ -66,8 +71,24 @@ len = error "todo"
 -- Performance: 1.0 mark
 -- Elegance: 1.5 marks
 -- Total: 7
+-- map f (a->b) over each element in the list
+
+--foldRight :: (a -> b -> b) -> b -> List a -> b
+--foldRight _ b Nil      = b
+--foldRight f b (h :| t) = f h (foldRight f b t)
+--foldRight f w list
+
+-- function composition
+-- f (g x) => f . g
+-- 				(:|) . f
+
 maap :: (a -> b) -> List a -> List b
-maap = error "todo"
+maap f = foldRight ((:|) . f) Nil
+--maap _ Nil = Nil
+--maap f (h :| t) = f h :| maap f t
+
+
+-- maap = error "todo"
 
 -- Exercise 5
 -- Relative Difficulty: 5
@@ -75,8 +96,13 @@ maap = error "todo"
 -- Performance: 1.5 marks
 -- Elegance: 1 mark
 -- Total: 7
+-- remove elements not satisfying the given predicate.
 fiilter :: (a -> Bool) -> List a -> List a
-fiilter = error "todo"
+fiilter _ Nil = Nil
+fiilter f (h :| t) = if f h then
+						(:|) h (fiilter f t)
+					 else
+					 	id (fiilter f t)
 
 -- Exercise 6
 -- Relative Difficulty: 5
@@ -84,6 +110,7 @@ fiilter = error "todo"
 -- Performance: 1.5 marks
 -- Elegance: 1 mark
 -- Total: 7
+-- join two lists into a new list
 append :: List a -> List a -> List a
 append = error "todo"
 
@@ -93,6 +120,7 @@ append = error "todo"
 -- Performance: 1.5 marks
 -- Elegance: 1 mark
 -- Total: 7
+-- concat and join the list of lists.
 flatten :: List (List a) -> List a
 flatten = error "todo"
 
@@ -102,6 +130,7 @@ flatten = error "todo"
 -- Performance: 1.5 marks
 -- Elegance: 1.5 mark
 -- Total: 8
+-- map the function on the list, then flatten the result.
 flatMap :: (a -> List b) -> List a -> List b
 flatMap = error "todo"
 
@@ -111,6 +140,7 @@ flatMap = error "todo"
 -- Performance: 2.0 marks
 -- Elegance: 3.5 marks
 -- Total: 9
+-- apply each function in the list to the given value (a)
 seqf :: List (a -> b) -> a -> List b
 seqf = error "todo"
 
@@ -120,7 +150,8 @@ seqf = error "todo"
 -- Performance: 2.5 marks
 -- Elegance: 2.5 marks
 -- Total: 10
+-- Reverse the list.
 rev :: List a -> List a
-rev = error "todo"
+rev = let myflipper r e = e :| r in foldLeft myflipper Nil
 
 -- END Exercises

@@ -3,6 +3,10 @@ module L01.Optional where
 --  class Optional<A> {
 --    Optional(A a) {} // Full
 --    Optional() {} // Empty
+
+
+	-- eq .equals
+	-- Show .toString
 --  }
 data Optional a = Full a | Empty deriving (Eq, Show)
 
