@@ -162,7 +162,7 @@ filter f = foldRight(\i -> if f i then (i :.) else id) Nil
   List a
   -> List a
   -> List a
-(++) a b = foldRight(\i res -> (i :. res)) (foldRight(\y rey -> (y :. rey)) Nil b) a
+(++) = flip(foldRight (:.))
 
 
 infixr 5 ++
