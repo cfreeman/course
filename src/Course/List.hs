@@ -85,7 +85,7 @@ headOr _ (a :. _) = a
 product ::
   List Int
   -> Int
-product (h :. t) = h * product(t)
+product (h :. t) = h * product t
 product Nil = 1
 
 -- | Sum the elements of the list.
@@ -100,7 +100,7 @@ product Nil = 1
 sum ::
   List Int
   -> Int
-sum (h :. t) = h + sum(t)
+sum (h :. t) = h + sum t
 sum Nil = 0
 
 -- | Return the length of the list.
@@ -112,7 +112,7 @@ sum Nil = 0
 length ::
   List a
   -> Int
-length (_ :. t) = 1 + length(t)
+length (_ :. t) = 1 + length t
 length Nil = 0
 
 -- | Map the given function on each element of the list.
@@ -127,7 +127,7 @@ map ::
   (a -> b)
   -> List a
   -> List b
-map f (h :. t) = (f(h) :. map(f) t)
+map f (h :. t) = f(h) :. map f t
 map _ Nil = Nil
 
 -- | Return elements satisfying the given predicate.
@@ -145,8 +145,8 @@ filter ::
   -> List a
   -> List a
 filter f (h :. t)
-  | f(h) = (h :. filter(f) t)
-  | otherwise = filter(f) t
+  | f(h) = h :. filter f t
+  | otherwise = filter f t
 filter _ Nil = Nil
 
 -- | Append two lists to a new list.
@@ -167,6 +167,7 @@ filter _ Nil = Nil
   -> List a
 (++) =
   error "todo"
+
 
 infixr 5 ++
 
