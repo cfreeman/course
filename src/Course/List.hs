@@ -144,10 +144,7 @@ filter ::
   (a -> Bool)
   -> List a
   -> List a
-filter f (h :. t)
-  | f(h) = h :. filter f t
-  | otherwise = filter f t
-filter _ Nil = Nil
+filter f a = foldRight(\i res -> if f(i) then (i :. res) else res) Nil a
 
 -- | Append two lists to a new list.
 --
