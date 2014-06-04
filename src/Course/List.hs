@@ -72,8 +72,8 @@ headOr ::
   a
   -> List a
   -> a
-headOr =
-  error "todo"
+headOr a Nil = a
+headOr _ (a :. _) = a
 
 -- | The product of the elements of a list.
 --
@@ -85,8 +85,8 @@ headOr =
 product ::
   List Int
   -> Int
-product =
-  error "todo"
+product (h :. t) = h * product(t)
+product Nil = 1
 
 -- | Sum the elements of the list.
 --
@@ -213,7 +213,7 @@ flattenAgain =
 
 -- | Convert a list of optional values to an optional list of values.
 --
--- * If the list contains all `Full` values, 
+-- * If the list contains all `Full` values,
 -- then return `Full` list of values.
 --
 -- * If the list contains one or more `Empty` values,
