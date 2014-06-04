@@ -128,7 +128,7 @@ map ::
   -> List a
   -> List b
 map f (h :. t) = (f(h) :. map(f) t)
-map (_) Nil = Nil
+map _ Nil = Nil
 
 -- | Return elements satisfying the given predicate.
 --
@@ -144,8 +144,10 @@ filter ::
   (a -> Bool)
   -> List a
   -> List a
-filter =
-  error "todo"
+filter f (h :. t)
+  | f(h) = (h :. filter(f) t)
+  | otherwise = filter(f) t
+filter _ Nil = Nil
 
 -- | Append two lists to a new list.
 --
