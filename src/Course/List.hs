@@ -100,8 +100,8 @@ product Nil = 1
 sum ::
   List Int
   -> Int
-sum =
-  error "todo"
+sum (h :. t) = h + sum(t)
+sum Nil = 0
 
 -- | Return the length of the list.
 --
