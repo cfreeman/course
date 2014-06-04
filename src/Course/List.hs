@@ -112,8 +112,8 @@ sum Nil = 0
 length ::
   List a
   -> Int
-length =
-  error "todo"
+length (_ :. t) = 1 + length(t)
+length Nil = 0
 
 -- | Map the given function on each element of the list.
 --
