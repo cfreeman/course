@@ -162,8 +162,7 @@ filter f a = foldRight(\i res -> if f(i) then (i :. res) else res) Nil a
   List a
   -> List a
   -> List a
-(++) =
-  error "todo"
+(++) a b = foldRight(\i res -> (i :. res)) (foldRight(\y rey -> (y :. rey)) Nil b) a
 
 
 infixr 5 ++
