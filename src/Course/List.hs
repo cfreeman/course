@@ -274,8 +274,8 @@ find =
 lengthGT4 ::
   List a
   -> Bool
-lengthGT4 =
-  error "todo"
+lengthGT4 a = foldLeft(\acc _ -> acc + 1) 0 a > 4
+
 
 -- | Reverse a list.
 --
