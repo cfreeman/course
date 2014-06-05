@@ -196,7 +196,7 @@ flatMap ::
   (a -> List b)
   -> List a
   -> List b
-flatMap f' = foldRight ((++) . f') Nil
+flatMap f = foldRight ((++) . f) Nil
 
 -- | Flatten a list of lists to a list (again).
 -- HOWEVER, this time use the /flatMap/ function that you just wrote.
@@ -232,8 +232,9 @@ flattenAgain = flatMap id
 seqOptional ::
   List (Optional a)
   -> Optional (List a)
-seqOptional =
-  error "todo"
+seqOptional (Full a :. _) = Full (a :. Nil)
+seqOptional (Empty :. _) = Empty
+seqOptional Nil = Full Nil
 
 -- | Find the first element in the list matching the predicate.
 --
