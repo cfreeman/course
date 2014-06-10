@@ -232,9 +232,13 @@ flattenAgain = flatMap id
 seqOptional ::
   List (Optional a)
   -> Optional (List a)
-seqOptional a = foldRight(\x acc -> case x of Empty -> Empty;
-                                              Full i -> case acc of Full y -> Full (i :. y);
-                                                                    Empty -> Empty) (Full Nil) a
+seqOptional = foldRight(\x acc -> bindOptional (\i -> mapOptional (i:.) acc) x) (Full Nil)
+
+--seqOptional = foldRight(\x acc -> case x of Empty -> Empty;
+--                                            Full i -> case acc of Full y -> Full (i :. y);
+--                                                                  Empty -> Empty) (Full Nil)
+
+data Hole = Hole
 
 -- | Find the first element in the list matching the predicate.
 --
