@@ -234,12 +234,6 @@ seqOptional ::
   -> Optional (List a)
 seqOptional = foldRight(\x acc -> bindOptional (\i -> mapOptional (i:.) acc) x) (Full Nil)
 
---seqOptional = foldRight(\x acc -> case x of Empty -> Empty;
---                                            Full i -> case acc of Full y -> Full (i :. y);
---                                                                  Empty -> Empty) (Full Nil)
-
-data Hole = Hole
-
 -- | Find the first element in the list matching the predicate.
 --
 -- >>> find even (1 :. 3 :. 5 :. Nil)
@@ -260,9 +254,10 @@ find ::
   (a -> Bool)
   -> List a
   -> Optional a
-find =
-  error "todo"
+find f a = foldLeft(\acc x -> case acc of Empty -> if f x then (Full x) else Empty;
+                                          Full y -> Full y) (Empty) a
 
+data Hole = Hole
 -- | Determine if the length of the given list is greater than 4.
 --
 -- >>> lengthGT4 (1 :. 3 :. 5 :. Nil)
