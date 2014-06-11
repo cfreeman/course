@@ -254,14 +254,8 @@ find ::
   (a -> Bool)
   -> List a
   -> Optional a
-find f Nil = Empty
+find _ Nil = Empty
 find f (h :. t) = if f h then (Full h) else find f t
-
-
-
-
---find f a = foldLeft(\acc x -> case acc of Empty -> if f x then (Full x) else Empty;
---                                          Full y -> Full y) (Empty) a
 
 data Hole = Hole
 -- | Determine if the length of the given list is greater than 4.
@@ -277,10 +271,17 @@ data Hole = Hole
 --
 -- >>> lengthGT4 infinity
 -- True
+depthUT4 ::
+  List a
+  -> Int
+  -> Int
+depthUT4 Nil d = d
+depthUT4 (_ :. t) d = if d < 4 then depthUT4 t (d + 1) else 4
+
 lengthGT4 ::
   List a
   -> Bool
-lengthGT4 a = foldLeft(\acc _ -> acc + 1) 0 a > 4
+lengthGT4 a = if depthUT4 a 0 == 4 then True else False
 
 
 -- | Reverse a list.
