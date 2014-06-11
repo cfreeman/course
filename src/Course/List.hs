@@ -254,8 +254,14 @@ find ::
   (a -> Bool)
   -> List a
   -> Optional a
-find f a = foldLeft(\acc x -> case acc of Empty -> if f x then (Full x) else Empty;
-                                          Full y -> Full y) (Empty) a
+find f Nil = Empty
+find f (h :. t) = if f h then (Full h) else find f t
+
+
+
+
+--find f a = foldLeft(\acc x -> case acc of Empty -> if f x then (Full x) else Empty;
+--                                          Full y -> Full y) (Empty) a
 
 data Hole = Hole
 -- | Determine if the length of the given list is greater than 4.
