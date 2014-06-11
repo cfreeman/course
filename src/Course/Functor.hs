@@ -38,7 +38,7 @@ instance Functor Id where
 -- >>> (+1) <$> (1 :. 2 :. 3 :. Nil)
 -- [2,3,4]
 instance Functor List where
-  (<$>) f a = foldRight(\x -> (f x:.) ) Nil a
+  (<$>) f a = foldRight(\x -> (f x:.)) Nil a
 
 -- | Maps a function on the Optional functor.
 --
@@ -56,8 +56,7 @@ instance Functor Optional where
 -- >>> ((+1) <$> (*2)) 8
 -- 17
 instance Functor ((->) t) where
-  (<$>) =
-    error "todo"
+  (<$>) f r a = f (r a)
 
 -- | Anonymous map. Maps a constant value on a functor.
 --
