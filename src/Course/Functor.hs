@@ -38,7 +38,7 @@ instance Functor Id where
 -- >>> (+1) <$> (1 :. 2 :. 3 :. Nil)
 -- [2,3,4]
 instance Functor List where
-  (<$>) f a = foldRight(\x -> (f x:.)) Nil a
+  (<$>) = map
 
 -- | Maps a function on the Optional functor.
 --
@@ -48,7 +48,7 @@ instance Functor List where
 -- >>> (+1) <$> Full 2
 -- Full 3
 instance Functor Optional where
-  (<$>) f Empty = Empty
+  (<$>) _ Empty = Empty
   (<$>) f (Full a) = Full (f a)
 
 -- | Maps a function on the reader ((->) t) functor.
