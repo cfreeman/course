@@ -283,7 +283,6 @@ lengthGT4 ::
   -> Bool
 lengthGT4 a = depthUT4 a 0 == 4
 
-
 -- | Reverse a list.
 --
 -- >>> reverse Nil
@@ -292,11 +291,16 @@ lengthGT4 a = depthUT4 a 0 == 4
 -- prop> let types = x :: List Int in reverse x ++ reverse y == reverse (y ++ x)
 --
 -- prop> let types = x :: Int in reverse (x :. Nil) == x :. Nil
+tail ::
+  List a
+  -> a
+tail (h :. Nil) = h
+tail (_ :. t) = tail(t)
+
 reverse ::
   List a
   -> List a
-reverse =
-  error "todo"
+reverse = undefined
 
 -- | Produce an infinite `List` that seeds with the given value at its head,
 -- then runs the given function for subsequent elements
