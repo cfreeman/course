@@ -87,11 +87,10 @@ instance Functor ((->) t) where
 -- >>> void (+10) 5
 -- ()
 void ::
-  Functor f =>
-  f a
-  -> f ()
-void =
-  error "todo"
+  Functor k =>
+  k a
+  -> k ()
+void ka = (\_ -> ()) <$> ka
 
 -----------------------
 -- SUPPORT LIBRARIES --
