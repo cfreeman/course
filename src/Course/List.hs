@@ -281,7 +281,7 @@ depthUT4 (_ :. t) d = if d < 4 then depthUT4 t (d + 1) else 4
 lengthGT4 ::
   List a
   -> Bool
-lengthGT4 a = if depthUT4 a 0 == 4 then True else False
+lengthGT4 a = depthUT4 a 0 == 4
 
 
 -- | Reverse a list.
