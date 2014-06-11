@@ -325,8 +325,7 @@ produce =
 notReverse ::
   List a
   -> List a
-notReverse =
-  error "todo"
+notReverse = id
 
 hlist ::
   List a
