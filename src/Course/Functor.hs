@@ -48,8 +48,8 @@ instance Functor List where
 -- >>> (+1) <$> Full 2
 -- Full 3
 instance Functor Optional where
-  (<$>) =
-    error "todo"
+  (<$>) f Empty = Empty
+  (<$>) f (Full a) = Full (f a)
 
 -- | Maps a function on the reader ((->) t) functor.
 --
