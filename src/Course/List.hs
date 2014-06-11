@@ -310,8 +310,7 @@ produce ::
   (a -> a)
   -> a
   -> List a
-produce =
-  error "todo"
+produce f a = (a :. produce f (f a))
 
 -- | Do anything other than reverse a list.
 -- Is it even possible?
