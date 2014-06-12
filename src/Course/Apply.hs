@@ -31,8 +31,7 @@ instance Apply Id where
 -- >>> (+1) :. (*2) :. Nil <*> 1 :. 2 :. 3 :. Nil
 -- [2,3,4,2,4,6]
 instance Apply List where
-  (<*>) f a = undefined
-  --(<*>) f a = foldRight(\acc x -> (x <$> a) :. acc) Nil a
+  (<*>) f a = foldRight(\x acc -> (x <$> a) ++ acc) Nil f
 
 -- | Implement @Apply@ instance for @Optional@.
 --
