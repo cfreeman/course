@@ -24,8 +24,7 @@ infixl 4 <*>
 -- >>> Id (+10) <*> Id 8
 -- Id 18
 instance Apply Id where
-  (<*>) =
-    error "todo"
+  (<*>) (Id f) (Id a) = Id (f a)
 
 -- | Implement @Apply@ instance for @List@.
 --
