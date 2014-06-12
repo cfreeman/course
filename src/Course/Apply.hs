@@ -24,15 +24,15 @@ infixl 4 <*>
 -- >>> Id (+10) <*> Id 8
 -- Id 18
 instance Apply Id where
-  (<*>) (Id f) (Id a) = Id (f a)
+  (<*>) (Id f) a = f <$> a
 
 -- | Implement @Apply@ instance for @List@.
 --
 -- >>> (+1) :. (*2) :. Nil <*> 1 :. 2 :. 3 :. Nil
 -- [2,3,4,2,4,6]
 instance Apply List where
-  (<*>) f a =
-    error "todo"
+  (<*>) f a = undefined
+  --(<*>) f a = foldRight(\acc x -> (x <$> a) :. acc) Nil a
 
 -- | Implement @Apply@ instance for @Optional@.
 --
