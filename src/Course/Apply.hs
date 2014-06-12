@@ -31,7 +31,7 @@ instance Apply Id where
 -- >>> (+1) :. (*2) :. Nil <*> 1 :. 2 :. 3 :. Nil
 -- [2,3,4,2,4,6]
 instance Apply List where
-  (<*>) =
+  (<*>) f a =
     error "todo"
 
 -- | Implement @Apply@ instance for @Optional@.
@@ -45,8 +45,9 @@ instance Apply List where
 -- >>> Full (+8) <*> Empty
 -- Empty
 instance Apply Optional where
-  (<*>) =
-    error "todo"
+  (<*>) Empty _ = Empty
+  (<*>) _ Empty = Empty
+  (<*>) (Full f) (Full a) = Full (f a)
 
 -- | Implement @Apply@ instance for reader.
 --
