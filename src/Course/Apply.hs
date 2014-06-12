@@ -46,8 +46,7 @@ instance Apply List where
 -- Empty
 instance Apply Optional where
   (<*>) Empty _ = Empty
-  (<*>) _ Empty = Empty
-  (<*>) (Full f) (Full a) = Full (f a)
+  (<*>) (Full f) a = f <$> a
 
 -- | Implement @Apply@ instance for reader.
 --
