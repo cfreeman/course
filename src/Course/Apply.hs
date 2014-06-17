@@ -63,9 +63,20 @@ instance Apply Optional where
 --
 -- >>> ((*) <*> (+2)) 3
 -- 15
+
+-- (t -> a -> b) -> (t -> a) -> t -> b
+
+-- r = (t -> a -> b)
+-- a = (t -> a)
+
+    -- f (a -> b) --> (t -> a -> b)
+    -- -> f a --> (t -> a)
+    -- -> f b
+
+    -- f => ((->) t) (t ->)
+
 instance Apply ((->) t) where
-  (<*>) =
-    error "todo"
+  (<*>) tab ta t = tab t (ta t)
 
 -- | Apply a binary function in the environment.
 --
