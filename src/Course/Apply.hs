@@ -186,13 +186,19 @@ lift4 f a b c d = (lift3 f a b c) <*> d
 -- prop> [a,b,c] *> [x,y,z] == [x,y,z,x,y,z,x,y,z]
 --
 -- prop> Full x *> Full y == Full y
+
+-- f a -> f b -> f b
+
+-- f (a -> b)
+-- -> f a
+-- -> f b
+
 (*>) ::
   Apply f =>
   f a
   -> f b
   -> f b
-(*>) =
-  error "todo"
+(*>) fa fb = fb
 
 -- | Sequence, discarding the value of the second argument.
 -- Pronounced, left apply.
@@ -212,13 +218,16 @@ lift4 f a b c d = (lift3 f a b c) <*> d
 -- prop> [x,y,z] <* [a,b,c] == [x,x,x,y,y,y,z,z,z]
 --
 -- prop> Full x <* Full y == Full x
+
+-- lift2 (+) (Full 7) (Full 8)
+-- Full 15
+
 (<*) ::
   Apply f =>
   f b
   -> f a
   -> f b
-(<*) =
-  error "todo"
+(<*) fb fa = lift2 (\b -> \_ -> b) fb fa
 
 -----------------------
 -- SUPPORT LIBRARIES --
