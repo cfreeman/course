@@ -227,7 +227,7 @@ lift4 f a b c d = (lift3 f a b c) <*> d
   f b
   -> f a
   -> f b
-(<*) fb fa = fa *> fb
+(<*) fb fa = lift2 (\b -> \_ -> b) fb fa
 
 -----------------------
 -- SUPPORT LIBRARIES --
