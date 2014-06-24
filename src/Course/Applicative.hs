@@ -37,8 +37,7 @@ class Apply f => Applicative f where
   (a -> b)
   -> f a
   -> f b
-(<$>) =
-  error "todo"
+(_) f fa = pure f <*> fa
 
 -- | Insert into Id.
 --
