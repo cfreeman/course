@@ -103,13 +103,19 @@ sequence = foldRight(\x acc -> (:.) <$> x <*> acc) (pure Nil)
 --
 -- >>> replicateA 3 ['a', 'b', 'c']
 -- ["aaa","aab","aac","aba","abb","abc","aca","acb","acc","baa","bab","bac","bba","bbb","bbc","bca","bcb","bcc","caa","cab","cac","cba","cbb","cbc","cca","ccb","ccc"]
+build ::
+  Applicative f =>
+  Int
+  -> f a
+  -> List (f a)
+build n fa = if n > 1 then fa :. build (n-1) fa else fa :. Nil
+
 replicateA ::
   Applicative f =>
   Int
   -> f a
   -> f (List a)
-replicateA =
-  error "todo"
+replicateA n fa = sequence(build n fa)
 
 -- | Filter a list with a predicate that produces an effect.
 --
