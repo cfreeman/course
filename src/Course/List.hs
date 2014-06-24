@@ -232,7 +232,15 @@ flattenAgain = flatMap id
 seqOptional ::
   List (Optional a)
   -> Optional (List a)
-seqOptional = foldRight(\x acc -> bindOptional (\i -> mapOptional (i:.) acc) x) (Full Nil)
+-- seqOptional = foldRight(\x acc -> bindOptional (\i -> mapOptional (i:.) acc) x) (Full Nil)
+seqOptional = foldRight(\x acc -> applyOptional (mapOptional (:.) x) acc) (Full Nil)
+
+applyOptional ::
+  Optional (a -> b)
+  -> Optional a
+  -> Optional b
+applyOptional f a =
+  bindOptional (\f' -> mapOptional (\a' -> f' a') a) f
 
 -- | Find the first element in the list matching the predicate.
 --

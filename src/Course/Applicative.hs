@@ -37,7 +37,7 @@ class Apply f => Applicative f where
   (a -> b)
   -> f a
   -> f b
-(_) f fa = pure f <*> fa
+(<$>) f fa = pure f <*> fa
 
 -- | Insert into Id.
 --
@@ -83,8 +83,9 @@ sequence ::
   Applicative f =>
   List (f a)
   -> f (List a)
-sequence =
-  error "todo"
+sequence = foldRight(\x acc -> (:.) <$> x <*> acc) (pure Nil)
+
+--  seqOptional = foldRight (\x acc -> applyOptional (mapOptional (:.) x) acc) (Full Nil)
 
 -- | Replicate an effect a given number of times.
 --
