@@ -198,7 +198,7 @@ lift4 f a b c d = (lift3 f a b c) <*> d
   f a
   -> f b
   -> f b
-(*>) fa fb = lift2 (\b -> \_ -> b) fb fa
+(*>) fa fb = lift2(\_ -> \a -> a) fa fb
 
 -- | Sequence, discarding the value of the second argument.
 -- Pronounced, left apply.
