@@ -133,13 +133,41 @@ replicateA n fa = sequence(build n fa)
 --
 -- >>> filtering (>) (4 :. 5 :. 6 :. 7 :. 8 :. 9 :. 10 :. 11 :. 12 :. Nil) 8
 -- [9,10,11,12]
+
+-- <*> and pure
 filtering ::
   Applicative f =>
   (a -> f Bool)
   -> List a
   -> f (List a)
-filtering =
-  error "todo"
+
+  -- x is an a
+  -- acc is an f (List a)
+
+  -- (Bool -> b) -> f Bool -> b
+  -- (\B -> if B then  )
+
+-- lift2 ::
+--  Apply f =>
+--  (a -> b -> c)
+--  -> f a
+--  -> f b
+--  -> f c
+
+-- filtering f' = foldRight(\x -> lift2 (\p l -> if p then (x :. l) else l) (f' x)) (pure Nil)
+
+
+-- if' id (x :. ) p
+
+  -- catamorphism foldRight is catamorphic for list.
+  -- if' is catamorphic for boolean.
+  -- Catamorphism -- Function that when given the constructors for the adt. Yields an identity function.
+filtering f' = foldRight(lift2 . if' id . (:.) <*> f') (pure Nil)
+
+if' :: a -> a -> Bool -> a
+if' _ t True = t
+if' f _ False = f
+
 
 -----------------------
 -- SUPPORT LIBRARIES --
