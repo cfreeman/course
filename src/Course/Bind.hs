@@ -65,6 +65,16 @@ infixr 1 =<<
 (<*>) =
   error "todo"
 
+  -- (<$>) ::
+  -- (a -> b)
+  -- -> f a
+  -- -> f b
+
+  -- (=<<) ::
+  --  (a -> f b)
+  --  -> f a
+  --  -> f b
+
 infixl 4 <*>
 
 -- | Binds a function on the Id monad.
@@ -94,8 +104,7 @@ instance Bind Optional where
 -- >>> ((*) =<< (+10)) 7
 -- 119
 instance Bind ((->) t) where
-  (=<<) =
-    error "todo"
+  (=<<) atb ta t = atb (ta t) t
 
 -- | Flattens a combined structure to a single structure.
 --
