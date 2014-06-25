@@ -123,8 +123,7 @@ join ::
   Bind f =>
   f (f a)
   -> f a
-join =
-  error "todo"
+join ffa = (\fa -> fa) =<< ffa
 
 -- | Implement a flipped version of @(=<<)@, however, use only
 -- @join@ and @(<$>)@.
