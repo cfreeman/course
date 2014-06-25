@@ -87,8 +87,8 @@ instance Bind List where
 -- >>> (\n -> Full (n + n)) =<< Full 7
 -- Full 14
 instance Bind Optional where
-  (=<<) =
-    error "todo"
+  (=<<) f' (Full a) = f' a
+  (=<<) _ Empty = Empty
 
 -- | Binds a function on the reader ((->) t).
 --
