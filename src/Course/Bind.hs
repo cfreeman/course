@@ -62,8 +62,15 @@ infixr 1 =<<
   f (a -> b)
   -> f a
   -> f b
-(<*>) =
-  error "todo"
+(<*>) f' fa = (\a2b -> a2b <$> fa) =<< f'
+
+-- Hole <*> f'
+-- `f ((a -> b) -> b)'
+
+-- Hole =<< f'
+-- `(a -> b) -> f b'
+
+
 
   -- (<$>) ::
   -- (a -> b)
@@ -131,13 +138,23 @@ join ffa = (\fa -> fa) =<< ffa
 --
 -- >>> ((+10) >>= (*)) 7
 -- 119
+
+-- (<$>) ::
+--     (a -> b)
+--     -> f a
+--     -> f b
+
+-- join ::
+--   Bind f =>
+--   f (f a)
+--   -> f a
+
 (>>=) ::
   Bind f =>
   f a
   -> (a -> f b)
   -> f b
-(>>=) =
-  error "todo"
+(>>=) = undefined
 
 infixl 1 >>=
 
