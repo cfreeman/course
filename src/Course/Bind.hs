@@ -79,8 +79,7 @@ instance Bind Id where
 -- >>> (\n -> n :. n :. Nil) =<< (1 :. 2 :. 3 :. Nil)
 -- [1,1,2,2,3,3]
 instance Bind List where
-  (=<<) =
-    error "todo"
+  (=<<) f' a = foldRight(\x acc -> (f' x) ++ acc) Nil a
 
 -- | Binds a function on an Optional.
 --
