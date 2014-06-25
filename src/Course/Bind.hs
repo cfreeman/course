@@ -72,8 +72,7 @@ infixl 4 <*>
 -- >>> (\x -> Id(x+1)) =<< Id 2
 -- Id 3
 instance Bind Id where
-  (=<<) =
-    error "todo"
+  (=<<) f' (Id a) = f' a
 
 -- | Binds a function on a List.
 --
