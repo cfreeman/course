@@ -154,7 +154,7 @@ join ffa = (\fa -> fa) =<< ffa
   f a
   -> (a -> f b)
   -> f b
-(>>=) = undefined
+(>>=) fa afb = join (afb <$> fa)
 
 infixl 1 >>=
 
