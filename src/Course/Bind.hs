@@ -169,8 +169,7 @@ infixl 1 >>=
   -> (a -> f b)
   -> a
   -> f c
-(<=<) =
-  error "todo"
+(<=<) bfc afb a = bfc =<< (afb a)
 
 infixr 1 <=<
 
