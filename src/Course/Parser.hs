@@ -111,8 +111,8 @@ mapParser ::
   (a -> b)
   -> Parser a
   -> Parser b
-mapParser =
-  error "todo"
+mapParser ab pa = P(\i -> case (parse pa i) of ErrorResult e -> ErrorResult e
+                                               Result i' a -> Result i' (ab a))
 
 -- | This is @mapParser@ with the arguments flipped.
 -- It might be more helpful to use this function if you prefer this argument order.
@@ -148,8 +148,8 @@ bindParser ::
   (a -> Parser b)
   -> Parser a
   -> Parser b
-bindParser =
-  error "todo"
+bindParser apb pa = P(\i -> case (parse pa i) of ErrorResult e -> ErrorResult e
+                                                 Result i' a -> parse (apb a) i')
 
 -- | This is @bindParser@ with the arguments flipped.
 -- It might be more helpful to use this function if you prefer this argument order.
