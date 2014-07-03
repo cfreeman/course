@@ -178,7 +178,7 @@ flbindParser =
   Parser a
   -> Parser b
   -> Parser b
-(>>>) pa pb = bindParser(\a -> pb) pa
+(>>>) pa pb = bindParser(\_ -> pb) pa
 
 -- | Return a parser that tries the first parser for a successful value.
 --
@@ -201,8 +201,8 @@ flbindParser =
   Parser a
   -> Parser a
   -> Parser a
-(|||) =
-  error "todo"
+(|||) pa1 pa2 = P(\i -> case (parse pa1 i) of ErrorResult _ -> (parse pa2 i)
+                                              Result i' a -> Result i' a)
 
 infixl 3 |||
 
